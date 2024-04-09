@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS assignedQuestions (
    questionId INT NOT NULL,
    answer VARCHAR(50) NOT NULL,
    classId INT NOT NULL,
-   question_text VARCHAR(255) UNIQUE NOT NULL,
+   question_text VARCHAR(255) NOT NULL,
    PRIMARY KEY (assignedQuestionId, classId),
    FOREIGN KEY (questionId) REFERENCES questions(questionId) ON UPDATE CASCADE ON DELETE CASCADE
 );
