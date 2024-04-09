@@ -1,21 +1,21 @@
--- This file is to bootstrap a database for the CS3200 project. 
+-- This file is to bootstrap a database for the CS3200 project.
 
 -- Create a new database.  You can change the name later.  You'll
--- need this name in the FLASK API file(s),  the AppSmith 
+-- need this name in the FLASK API file(s),  the AppSmith
 -- data source creation.
 CREATE DATABASE IF NOT EXISTS math_learning_db;
 
--- Via the Docker Compose file, a special user called webapp will 
--- be created in MySQL. We are going to grant that user 
--- all privilages to the new database we just created. 
--- TODO: If you changed the name of the database above, you need 
+-- Via the Docker Compose file, a special user called webapp will
+-- be created in MySQL. We are going to grant that user
+-- all privilages to the new database we just created.
+-- TODO: If you changed the name of the database above, you need
 -- to change it here too.
 grant all privileges on math_learning_db.* to 'webapp'@'%';
 flush privileges;
 
 -- Move into the database we just created.
 -- TODO: If you changed the name of the database above, you need to
--- change it here too. 
+-- change it here too.
 USE math_learning_db;
 
 
@@ -87,6 +87,7 @@ CREATE TABLE IF NOT EXISTS assignedQuestions (
    questionId INT NOT NULL,
    answer VARCHAR(50) NOT NULL,
    classId INT NOT NULL,
+   question_text VARCHAR(255) UNIQUE NOT NULL,
    PRIMARY KEY (assignedQuestionId, classId),
    FOREIGN KEY (questionId) REFERENCES questions(questionId) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -211,14 +212,14 @@ VALUES ('student3@example.com', 'Ethan', 10);
 
 
 -- Insert statement for assignedQuestions table
-INSERT INTO assignedQuestions (questionId, answer, classId)
-VALUES (1, '42', 1);
+INSERT INTO assignedQuestions (questionId, question_text, answer, classId)
+VALUES (1, '6x7','42', 1);
 
-INSERT INTO assignedQuestions (questionId, answer, classId)
-VALUES (2, 'Newton', 2);
+INSERT INTO assignedQuestions (questionId, question_text, answer, classId)
+VALUES (2, 'Who discovered the law of gravity?','Newton', 2);
 
-INSERT INTO assignedQuestions (questionId, answer, classId)
-VALUES (3, 'Washington', 3);
+INSERT INTO assignedQuestions (questionId, question_text, answer, classId)
+VALUES (3, 'Who was the first President of the United States?','Washington', 3);
 
 
 -- Insert statement for activity table
