@@ -35,12 +35,14 @@ def create_app():
     # Import the various Beluprint Objects
     from src.questions.questions import questions
     from src.assigned_questions.assigned_questions import assigned_questions
+    from src.classroom.classroom import classroom
 
 
     # Register the routes from each Blueprint with the app object
     # and give a url prefix to each
     app.register_blueprint(questions,   url_prefix='/q')
     app.register_blueprint(assigned_questions, url_prefix='/a')
+    app.register_blueprint(classroom, url_prefix='/c')
     
 
     # Don't forget to return the app object
