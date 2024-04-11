@@ -1183,21 +1183,21 @@ SELECT students.email, 'Math', parent.email, FLOOR(RAND() * 25), 25, students.fi
 FROM students
 JOIN parent ON students.email = parent.studentEmail
 ORDER BY RAND()
-LIMIT 20;
+LIMIT 40;
 
 INSERT IGNORE INTO studentsProgress (studentEmail, subject, parentEmail, totalCorrect, totalAttempts, firstName, firstDate, lastDate)
 SELECT students.email, 'Science', parent.email, FLOOR(RAND() * 22), 22, students.firstName, '2024-02-10', '2024-04-05'
 FROM students
 JOIN parent ON students.email = parent.studentEmail
 ORDER BY RAND()
-LIMIT 20;
+LIMIT 40;
 
 INSERT IGNORE INTO studentsProgress (studentEmail, subject, parentEmail, totalCorrect, totalAttempts, firstName, firstDate, lastDate)
 SELECT students.email, 'History', parent.email, FLOOR(RAND() * 22), 22, students.firstName, '2024-02-10', '2024-04-05'
 FROM students
 JOIN parent ON students.email = parent.studentEmail
 ORDER BY RAND()
-LIMIT 20;
+LIMIT 40;
 
 
 -- Inserting into classroomProgress table
@@ -1213,7 +1213,7 @@ SELECT
 FROM
     assignedQuestions AS aq
 JOIN
-    (SELECT * FROM students ORDER BY RAND() LIMIT 20) AS s ON aq.classId = s.classroomId
+    (SELECT * FROM students ORDER BY RAND() LIMIT 40) AS s ON aq.classId = s.classroomId
 ORDER BY
     RAND();
 
