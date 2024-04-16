@@ -38,6 +38,9 @@ def create_app():
     from src.classroom.classroom import classroom
     from src.activity.activity import activity
     from src.studentProgress.students import studentProgress
+    from src.students.students import students
+    from src.parent.parent import parent
+    from src.adminVerification.adminVerification import adminVerification
 
 
     # Register the routes from each Blueprint with the app object
@@ -47,7 +50,10 @@ def create_app():
     app.register_blueprint(classroom, url_prefix='/c')
     app.register_blueprint(activity, url_prefix='/a')
     app.register_blueprint(studentProgress, url_prefix='/s')
-    
+    app.register_blueprint(students, url_prefix='/st')
+    app.register_blueprint(parent, url_prefix='/p')
+    app.register_blueprint(adminVerification, url_prefix='/av')
+
 
     # Don't forget to return the app object
     return app
