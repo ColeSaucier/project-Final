@@ -41,7 +41,7 @@ def create_app():
     from src.students.students import students
     from src.parent.parent import parent
     from src.adminVerification.adminVerification import adminVerification
-
+    from src.teachers.teachers import teachers
 
     # Register the routes from each Blueprint with the app object
     # and give a url prefix to each
@@ -53,6 +53,7 @@ def create_app():
     app.register_blueprint(students, url_prefix='/st')
     app.register_blueprint(parent, url_prefix='/p')
     app.register_blueprint(adminVerification, url_prefix='/av')
+    app.register_blueprint(teachers, url_prefix='/t')
 
 
     # Don't forget to return the app object
