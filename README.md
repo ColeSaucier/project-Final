@@ -18,8 +18,8 @@ This repo contains a boilerplate setup for spinning up 3 Docker containers:
 1. Build the images with `docker compose build`
 1. Start the containers with `docker compose up`.  To run in detached mode, run `docker compose up -d`. 
 
-## How to start the application
-1. Once application is started download the appsmith repo in the submission
+## How to start the App Smith side
+1. Once the application is started download the appsmith repo in the submission
 2. Navigate to `http://localhost:8080/applications`
 3. Upload the repo under create new then import 
 
