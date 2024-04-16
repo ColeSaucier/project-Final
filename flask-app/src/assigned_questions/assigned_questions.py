@@ -49,7 +49,7 @@ def get_all_categories():
     
     return jsonify(json_data)
 
-### Get the assinment from the classroom
+### Get the assingments from the classroom
 @assigned_questions.route('/class_assigned', methods = ['GET'])
 def get_selected():
 
