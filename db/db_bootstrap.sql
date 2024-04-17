@@ -3,7 +3,6 @@
 -- Create a new database.  You can change the name later.  You'll
 -- need this name in the FLASK API file(s),  the AppSmith
 -- data source creation.
-
 drop database math_learning_db;
 CREATE DATABASE IF NOT EXISTS math_learning_db;
 
@@ -127,10 +126,10 @@ CREATE TABLE IF NOT EXISTS classroomProgress (
    email VARCHAR(50) NOT NULL,
    PRIMARY KEY (assignedQuestionId, email),
    firstName VARCHAR(50),
-   totalAttempts INT NOT NULL,
+   totalAttempts INT NOT NULl DEFAULT 0,
    correctness BOOLEAN DEFAULT FALSE,
-   firstDate DATE NOT NULL,
-   lastDate DATE NOT NULL,
+   firstDate DATE,
+   lastDate DATE,
    classId INT NOT NULL,
    FOREIGN KEY (email, firstName) REFERENCES students(email, firstName) ON UPDATE CASCADE ON DELETE CASCADE,
    FOREIGN KEY (assignedQuestionId, classId) REFERENCES assignedQuestions(assignedQuestionId, classId) ON UPDATE CASCADE ON DELETE CASCADE
@@ -240,9 +239,99 @@ BEGIN
     SELECT NEW.assignedQuestionId, s.email, s.firstName, NEW.classId
     FROM students s
     WHERE s.classroomId = NEW.classId;
-END
+END;
+
+
+
+-- Insert statement for siteAdmin table
+INSERT INTO siteAdmin (firstName, lastName, email, phoneNumber)
+VALUES ('John', 'Doe', 'johndoe@example.com', '123-456-7890');
+
+INSERT INTO siteAdmin (firstName, lastName, email, phoneNumber)
+VALUES ('Jane', 'Smith', 'janesmith@example.com', '987-654-3210');
+
+INSERT INTO siteAdmin (firstName, lastName, email, phoneNumber)
+VALUES ('Alice', 'Johnson', 'alicejohnson@example.com', '555-123-4567');
+
+
+-- Insert statement for teacher table
+INSERT INTO teacher (firstName, lastName, email, phoneNumber)
+VALUES ('Mark', 'Anderson', 'mark.anderson@example.com', '111-222-3333');
+
+INSERT INTO teacher (firstName, lastName, email, phoneNumber)
+VALUES ('Emily', 'Brown', 'emily.brown@example.com', '444-555-6666');
+
+INSERT INTO teacher (firstName, lastName, email, phoneNumber)
+VALUES ('James', 'Wilson', 'james.wilson@example.com', '777-888-9999');
+
+
+-- Insert statement for classroom table
+INSERT INTO classroom (teacherId, adminEmail)
+VALUES (1, 'johndoe@example.com');
+
+INSERT INTO classroom (teacherId, adminEmail)
+VALUES (2, 'janesmith@example.com');
+
+INSERT INTO classroom (teacherId, adminEmail)
+VALUES (3, 'alicejohnson@example.com');
+
+
+-- Insert statement for students table
+INSERT INTO students (email, firstName, lastName, classroomId)
+VALUES ('student1@example.com', 'Michael', 'Williams', 1);
+
+INSERT INTO students (email, firstName, lastName, classroomId)
+VALUES ('student2@example.com', 'Sophia', 'Taylor', 2);
+
+INSERT INTO students (email, firstName, lastName, classroomId)
+VALUES ('student3@example.com', 'Ethan', 'Martinez', 3);
+
+
+-- Insert statement for parent table
+INSERT INTO parent (email, firstName, lastName, studentEmail)
+VALUES ('parent1@example.com', 'Laura', 'Williams', 'student1@example.com');
+
+INSERT INTO parent (email, firstName, lastName, studentEmail)
+VALUES ('parent2@example.com', 'David', 'Taylor', 'student2@example.com');
+
+INSERT INTO parent (email, firstName, lastName, studentEmail)
+VALUES ('parent3@example.com', 'Sophie', 'Martinez', 'student3@example.com');
+
+
+-- Insert statement for questions table
+INSERT INTO questions (subject, answer, question_text)
+VALUES ('Math', '42', '6x7');
+
+INSERT INTO questions (subject, answer, question_text)
+VALUES ('Science', 'Newton', 'Who discovered the law of gravity?');
+
+INSERT INTO questions (subject, answer, question_text)
+VALUES ('History', 'Washington', 'Who was the first President of the United States?');
+
+
+-- Insert statement for assignedQuestions table
+INSERT INTO assignedQuestions (questionId, question_text, answer, classId)
+VALUES (1, '6x7','42', 1);
+
+INSERT INTO assignedQuestions (questionId, question_text, answer, classId)
+VALUES (2, 'Who discovered the law of gravity?','Newton', 2);
+
+INSERT INTO assignedQuestions (questionId, question_text, answer, classId)
+VALUES (3, 'Who was the first President of the United States?','Washington', 3);
+
+
+-- Insert statement for activity table
+INSERT INTO activity (email, submittedAnswer, assignedQuestionId)
+VALUES ('student1@example.com', '42', 1);
+
+INSERT INTO activity (email, submittedAnswer, assignedQuestionId)
+VALUES ('student2@example.com', 'Newton', 2);
+
+INSERT INTO activity (email, submittedAnswer, assignedQuestionId)
+VALUES ('student3@example.com', 'Adams', 3);
 
 -- Insert statement for all the data
+
 USE math_learning_db;
 
 INSERT INTO siteAdmin (firstName, lastName, email, phoneNumber) VALUES ('Kayla', 'Anderson', 'margaretmitchell@example.com', '450.604.0335x961');
@@ -1166,27 +1255,3 @@ INSERT INTO activity (email, submittedAnswer, assignedQuestionId) VALUES ('willi
 INSERT INTO activity (email, submittedAnswer, assignedQuestionId) VALUES ('samuelmcintosh@example.com', '2', 12);
 INSERT INTO activity (email, submittedAnswer, assignedQuestionId) VALUES ('richardkelli@example.net', '32', 5);
 INSERT INTO activity (email, submittedAnswer, assignedQuestionId) VALUES ('ymyers@example.com', 'Paris', 27);
-
-
-
--- Inserting into studentsProgress table for Math subject
-INSERT IGNORE INTO studentsProgress (studentEmail, subject, parentEmail, totalCorrect, totalAttempts, firstName, firstDate, lastDate)
-SELECT students.email, 'Math', parent.email, FLOOR(RAND() * 25), 25, students.firstName, '2024-01-05', '2024-04-05'
-FROM students
-JOIN parent ON students.email = parent.studentEmail
-ORDER BY RAND()
-LIMIT 40;
-
-INSERT IGNORE INTO studentsProgress (studentEmail, subject, parentEmail, totalCorrect, totalAttempts, firstName, firstDate, lastDate)
-SELECT students.email, 'Science', parent.email, FLOOR(RAND() * 22), 22, students.firstName, '2024-02-10', '2024-04-05'
-FROM students
-JOIN parent ON students.email = parent.studentEmail
-ORDER BY RAND()
-LIMIT 40;
-
-INSERT IGNORE INTO studentsProgress (studentEmail, subject, parentEmail, totalCorrect, totalAttempts, firstName, firstDate, lastDate)
-SELECT students.email, 'History', parent.email, FLOOR(RAND() * 22), 22, students.firstName, '2024-02-10', '2024-04-05'
-FROM students
-JOIN parent ON students.email = parent.studentEmail
-ORDER BY RAND()
-LIMIT 40;
