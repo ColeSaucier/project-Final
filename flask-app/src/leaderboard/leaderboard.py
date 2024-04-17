@@ -14,7 +14,7 @@ leaderboard = Blueprint('leaderboard', __name__)
 def get_leaderboard():
     # get a cursor object from the database
     cursor = db.get_db().cursor()
-
+    current_app.logger.info('leaders')
     # use cursor to query the database for a list of products
     cursor.execute('SELECT firstName, numberOfCorrect FROM leaderboard Order by numberOfCorrect DESC')
 

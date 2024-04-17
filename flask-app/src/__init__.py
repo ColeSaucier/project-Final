@@ -42,10 +42,11 @@ def create_app():
     from src.parent.parent import parent
     from src.adminVerification.adminVerification import adminVerification
     from src.teachers.teachers import teachers
+    from src.leaderboard.leaderboard import leaderboard
 
     # Register the routes from each Blueprint with the app object
     # and give a url prefix to each
-    app.register_blueprint(questions,   url_prefix='/q')
+    app.register_blueprint(questions,  url_prefix='/q')
     app.register_blueprint(assigned_questions, url_prefix='/a')
     app.register_blueprint(classroom, url_prefix='/c')
     app.register_blueprint(activity, url_prefix='/a')
@@ -54,7 +55,7 @@ def create_app():
     app.register_blueprint(parent, url_prefix='/p')
     app.register_blueprint(adminVerification, url_prefix='/av')
     app.register_blueprint(teachers, url_prefix='/t')
-
+    app.register_blueprint(leaderboard, url_prefix='/l')
 
     # Don't forget to return the app object
     return app
