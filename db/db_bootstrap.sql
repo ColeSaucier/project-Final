@@ -220,6 +220,7 @@ BEGIN
 END$$
 DELIMITER ;
 
+DELIMITER $$
 CREATE TRIGGER addStudent_leaderboard
 AFTER INSERT ON students
 FOR EACH ROW
@@ -227,9 +228,11 @@ BEGIN
     -- Insert a new row into the leaderboard table
     INSERT INTO leaderboard (email, firstName, numberOfCorrect)
     VALUES (NEW.email, NEW.firstName, 0);
-END;
+END$$
+DELIMITER ;
 
 -- on insert of assigned questions, creates a clasroomprogress for students with same classid
+DELIMITER $$
 CREATE TRIGGER addClassroom_Progress
 AFTER INSERT ON assignedQuestions
 FOR EACH ROW
@@ -238,8 +241,8 @@ BEGIN
     SELECT NEW.assignedQuestionId, s.email, s.firstName, NEW.classId
     FROM students s
     WHERE s.classroomId = NEW.classId;
-END;
-
+END$$
+DELIMITER ;
 
 
 -- Insert statement for siteAdmin table
