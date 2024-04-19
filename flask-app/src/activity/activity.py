@@ -5,7 +5,7 @@ from src import db
 
 activity = Blueprint('activity', __name__)
 
-# Get all the products from the database
+# Get all activity from the database
 @activity.route('/activity', methods=['GET'])
 def get_activities():
     # get a cursor object from the database
@@ -31,6 +31,7 @@ def get_activities():
 
     return jsonify(json_data)
 
+# Input an answer - adds a row
 @activity.route('/activity/<inputAnswer>', methods=['POST'])
 def insert_activity(inputAnswer):
     #request is body of api input
@@ -79,12 +80,13 @@ def insert_activity(inputAnswer):
     the_response.mimetype = 'application/json'
     return the_response
 
-# Get all the questions from the database
+# Get all the questions from the database (classroom or all)
 @activity.route('/<classroomYes>/<userEmail>', methods=['GET'])
 def get_questions(classroomYes, userEmail):
     # get a cursor object from the database
     cursor = db.get_db().cursor()
 
+    # Classroom or All Questions query
     if classroomYes != "classroom":
         # use cursor to query the database for a list of questions
         cursor.execute('SELECT questionId, subject, question_text FROM questions')

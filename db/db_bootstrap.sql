@@ -134,6 +134,7 @@ CREATE TABLE IF NOT EXISTS classroomProgress (
    FOREIGN KEY (assignedQuestionId, classId) REFERENCES assignedQuestions(assignedQuestionId, classId) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+-- Updates leaderboard count, correctness
 DELIMITER $$
 CREATE TRIGGER addCorrectAnswers
 AFTER INSERT ON activity
@@ -159,6 +160,7 @@ BEGIN
 END$$
 DELIMITER ;
 
+-- Updates total attempts, dates
 DELIMITER $$
 CREATE TRIGGER addAttempt
 AFTER INSERT ON activity
@@ -220,6 +222,7 @@ BEGIN
 END$$
 DELIMITER ;
 
+-- Creates a leaderboard when student inserted
 DELIMITER $$
 CREATE TRIGGER addStudent_leaderboard
 AFTER INSERT ON students
@@ -1255,3 +1258,25 @@ INSERT INTO activity (email, submittedAnswer, assignedQuestionId) VALUES ('willi
 INSERT INTO activity (email, submittedAnswer, assignedQuestionId) VALUES ('samuelmcintosh@example.com', '2', 12);
 INSERT INTO activity (email, submittedAnswer, assignedQuestionId) VALUES ('richardkelli@example.net', '32', 5);
 INSERT INTO activity (email, submittedAnswer, assignedQuestionId) VALUES ('ymyers@example.com', 'Paris', 27);
+
+-- Inserting into studentsProgress table for Math subject
+INSERT IGNORE INTO studentsProgress (studentEmail, subject, parentEmail, totalCorrect, totalAttempts, firstName, firstDate, lastDate)
+SELECT students.email, 'Math', parent.email, FLOOR(RAND() * 25), 25, students.firstName, '2024-01-05', '2024-04-05'
+FROM students
+JOIN parent ON students.email = parent.studentEmail
+ORDER BY RAND()
+LIMIT 40;
+
+INSERT IGNORE INTO studentsProgress (studentEmail, subject, parentEmail, totalCorrect, totalAttempts, firstName, firstDate, lastDate)
+SELECT students.email, 'Science', parent.email, FLOOR(RAND() * 22), 22, students.firstName, '2024-02-10', '2024-04-05'
+FROM students
+JOIN parent ON students.email = parent.studentEmail
+ORDER BY RAND()
+LIMIT 40;
+
+INSERT IGNORE INTO studentsProgress (studentEmail, subject, parentEmail, totalCorrect, totalAttempts, firstName, firstDate, lastDate)
+SELECT students.email, 'History', parent.email, FLOOR(RAND() * 22), 22, students.firstName, '2024-02-10', '2024-04-05'
+FROM students
+JOIN parent ON students.email = parent.studentEmail
+ORDER BY RAND()
+LIMIT 40;

@@ -48,7 +48,7 @@ def get_customer(userEmail):
     the_response.mimetype = 'application/json'
     return the_response
 
-# Get specific student's progress (by subject)
+# Get all student emails
 @studentProgress.route('/studentEmails', methods=['GET'])
 def get_studentemails():
     # get a cursor object from the database
